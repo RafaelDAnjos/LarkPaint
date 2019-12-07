@@ -17,9 +17,11 @@ turtle_grammar = """
                |  reset                     -> reset
                |  dcircle NUMBER            -> draw_circle
                |  home                      -> origin
-        
-               
-               
+               |  speed   NUMBER            -> set_speed
+               |  clear                     -> limpar
+
+    clear: "limpar"           
+    speed: "speed"         
     home: "home"
     dcircle: "dcircle"
     reset: "reset"
@@ -68,6 +70,15 @@ def run_instruction(t):
 
     elif t.data == 'origin':
         turtle.home()
+    elif t.data == 'set_speed':
+        numero = int(t.children[1])
+        if numero<1 or numero>10:
+            turtle.speed(0)
+        else:
+            turtle.speed(numero)
+    elif t.data == 'limpar':
+        turtle.clear()
+
 
     else:
         raise SyntaxError('Unknown instruction: %s' % t.data)
